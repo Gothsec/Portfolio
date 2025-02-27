@@ -27,7 +27,7 @@ const navItems: NavItem[] = [
 <div class="flex justify-center w-full">
   <nav
     id="main-nav"
-    class="fixed left-1/2 -translate-x-1/2 z-[100] bg-[var(--background)] border border-1 border-transparent backdrop-blur-xl transition-all duration-300 ease-in-out md:top-0 md:bottom-auto bottom-0"
+    class="fixed left-1/2 -translate-x-1/2 z-[100] bg-[var(--background)] border border-1 border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 w-[80%]"
   >
     <div class="container mx-auto flex justify-center items-center p-3">
       <ul
@@ -38,8 +38,9 @@ const navItems: NavItem[] = [
             <li class="flex-1 md:flex-none">
               <a
                 href={item.href}
-                class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base"
+                class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base relative group"
               >
+                <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 scale-0 opacity-0 bg-[#A9FF5B] nav-indicator hidden md:block"></div>
                 <span class="md:hidden flex items-center justify-center w-6 h-6">
                   <fragment set:html={item.icon} />
                 </span>
@@ -47,6 +48,17 @@ const navItems: NavItem[] = [
                 <span class="md:hidden">{item.label}</span>
               </a>
             </li>
+
+            <style>
+              nav a.active .nav-indicator {
+                transform: translateY(-50%) scale(1);
+                opacity: 1;
+              }
+
+              nav a.active {
+                color: white !important;
+              }
+            </style>
           ))
         }
       </ul>
@@ -56,44 +68,61 @@ const navItems: NavItem[] = [
 
 <style>
   nav {
-    width: 100%;
     transform: translateX(-50%);
+    background-color: var(--background);
+    transition: background-color 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease;
   }
   
-  nav.scrolled {
-    width: 33rem;
-    margin-top: 1.5rem;
-    border-radius: 9999px;
+  nav.scrolling {
     background-color: var(--component-bg);
     border-color: var(--component-border);
+    border-radius: 9999px;
   }
 
   @media (max-width: 767px) {
-    nav.scrolled {
+    nav {
       width: 100%;
-      margin-top: 0;
+    }
+    
+    nav.scrolling {
       border-radius: 1rem 1rem 0 0;
     }
-  }
-
-  nav, nav.scrolled {
-    backface-visibility: hidden;
-    perspective: 1000px;
-    will-change: width, border-radius, background-color;
   }
 </style>
 
 <script>
   const nav = document.getElementById('main-nav');
-  const scrollThreshold = 100;
+  const maxScroll = 1000; // 增加滚动距离
+  let rafId: number | null = null;
+
+  function updateNav() {
+    if (window.scrollY > 0) {
+      nav?.classList.add('scrolling');
+      
+      // 使用 easeOutQuart 缓动函数使变化更加平滑
+      const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
+      const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
+      
+      const minWidth = 528;
+      const maxWidth = window.innerWidth * 0.8;
+      const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
+      
+      if (window.innerWidth >= 768) {
+        nav?.style.setProperty('width', `${currentWidth}px`);
+      }
+    } else {
+      nav?.classList.remove('scrolling');
+      nav?.style.setProperty('width', '80%');
+    }
+    
+    rafId = null;
+  }
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > scrollThreshold) {
-      nav?.classList.add('scrolled');
-    } else {
-      nav?.classList.remove('scrolled');
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateNav);
     }
-  });
+  }, { passive: true });
 </script>
 
 <script>
