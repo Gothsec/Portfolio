@@ -36,18 +36,32 @@ const { title } = Astro.props;
 
     <title>{title}</title>
   </head>
-  <body class="bg-[--background] md:px-48 lg:px-20 px-9">
+  <body class="bg-[--background] md:px-48 lg:px-20 px-9" data-theme="dark">
     <slot />
   </body>
 </html>
 
 <style is:global>
-  :root {
+  :root[data-theme="light"] {
+    --background: #f8f9fa;
+    --sec: #6d5dfc;
+    --white: #2d2d2d;
+    --white-icon: #4a4a4a98;
+    --white-icon-tr: #4a4a4a10;
+    --component-bg: #ffffff;
+    --component-border: #e9ecef20;
+    --hover-bg: #f1f3f520;
+  }
+
+  :root[data-theme="dark"] {
     --background: #101010;
     --sec: #a476ff;
     --white: #dfdfdf;
     --white-icon: #f3f3f398;
     --white-icon-tr: #f3f3f310;
+    --component-bg: #1414149c;
+    --component-border: #ffffff10;
+    --hover-bg: var(--white-icon-tr);
   }
 
   * {
@@ -92,3 +106,16 @@ const { title } = Astro.props;
     scrollbar-color: var(--line) var(--container);
   }
 </style>
+
+<script>
+  // 主题切换功能
+  const theme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+
+  // 监听主题切换事件
+  window.addEventListener('theme-change', (e: any) => {
+    const newTheme = e.detail.theme;
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+</script>
