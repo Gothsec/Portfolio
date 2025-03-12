@@ -1,7 +1,9 @@
 ---
 import { Image } from "astro:assets";
+import defaultimg from "../../public/default.png";
 import svgl from "../../public/svgl.png";
 import stockin from "../../public/stockin.png";
+import moviesfordevs from "../../public/moviesfordevs.png";
 
 interface Project {
   title: string;
@@ -13,11 +15,18 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "MoviesForDevs",
+    image: moviesfordevs as ImageMetadata,
+    link: "https://github.com/Gothsec/MoviesForDevs",
+    preview: "https://movies-for-devs.vercel.app",
+    status: "On Development",
+  },
+  {
     title: "StockIn",
     image: stockin as ImageMetadata,
     link: "https://github.com/gothsec/stockin-demo",
     preview: "https://stockin-demo.vercel.app",
-    status: "In Development",
+    status: "On Development",
   },
   {
     title: "Svgl.app",
