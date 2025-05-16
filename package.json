@@ -16,7 +16,7 @@
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "astro": "^5.7.13",
-    "firebase": "^11.7.1",
+    "firebase": "^11.7.3",
     "ogl": "^1.0.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
