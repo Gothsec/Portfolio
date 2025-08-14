@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.3.0",
     "@astrojs/tailwind": "^6.0.2",
-    "@types/react": "^19.1.8",
+    "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.5",
     "astro": "^5.12.9",
     "firebase": "^12.1.0",
