@@ -3,7 +3,7 @@ name: Deploy Astro site to GitHub Pages
 on:
   push:
     branches:
-      - main  # 👈 Cambia esto si usas otra rama (por ejemplo, "master")
+      - main  # 👈 Cambia si usas otra rama
 
 jobs:
   build:
@@ -13,16 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 🟢 Instalar pnpm antes que Node cache
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9  # 👈 Usa la versión que tengas localmente
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9  # 👈 Usa la versión que tengas localmente (pnpm -v)
 
       - name: Install dependencies
         run: pnpm install
@@ -33,5 +34,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: withastro/action@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 👆 No necesitas deploy_key a menos que uses una clave SSH personalizada
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+
