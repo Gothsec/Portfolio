@@ -5,6 +5,7 @@ import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 
 // https://astro.build/config
+site: 'https://alejo.github.io'
 export default defineConfig({
   integrations: [tailwind(), react()],
   vite: {
