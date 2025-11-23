@@ -1,4 +1,6 @@
 ---
+import Preloader from '../components/Preloader.astro';
+
 interface Props {
   title: string;
 }
@@ -23,6 +25,7 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="bg-[--background] sm:px-28 lg:px-20 px-9">
+     <Preloader />
     <slot />
   </body>
 </html>

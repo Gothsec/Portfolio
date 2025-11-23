@@ -1,0 +1,87 @@
+---
+// src/components/Preloader.astro
+---
+<style is:global>
+  /* Overlay */
+  #preloader {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(12, 12, 12, 0.55);
+    backdrop-filter: blur(6px) brightness(0.9);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    transition: opacity .35s ease, visibility .35s ease;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Loader wrapper */
+  .loader {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Dots: faster fade sequence */
+  .loader .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #76f123, #bef59e);
+
+    opacity: 0;
+    animation: fadeSequence 1s infinite; /* faster */
+  }
+
+  /* Faster stagger */
+  .loader .dot:nth-child(1) { animation-delay: 0s; }
+  .loader .dot:nth-child(2) { animation-delay: 0.18s; }
+  .loader .dot:nth-child(3) { animation-delay: 0.36s; }
+
+  /* Fast + smooth fade sequence */
+  @keyframes fadeSequence {
+    0%   { opacity: 0; }
+    25%  { opacity: 1; }   /* individual appear */
+    55%  { opacity: 1; }   /* all visible overlap */
+    80%  { opacity: 1; }   /* hold visibility */
+    100% { opacity: 0; }   /* all disappear */
+  }
+</style>
+
+<div id="preloader">
+  <div class="loader">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    function hide() {
+      const p = document.getElementById('preloader');
+      if (!p) return;
+      p.classList.add('hidden');
+      setTimeout(() => p.remove(), 350);
+    }
+
+    if (document.readyState === 'complete') {
+      hide();
+    } else {
+      window.addEventListener('load', hide, { once: true });
+      setTimeout(hide, 5000);
+    }
+  })();
+</script>
