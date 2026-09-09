@@ -1,0 +1,7 @@
+# robots.txt — https://darkminimal.vercel.app
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+Sitemap: https://darkminimal.vercel.app/sitemap-index.xml

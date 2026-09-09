@@ -1,0 +1,35 @@
+# Portfolio
+
+> Open-source personal portfolio template for developers, built with Astro, React, and Tailwind CSS.
+> Designed to be cloned, customized, and deployed with minimal configuration; includes a working
+> contact form, a Spotify album embed, and a Firebase-backed like counter.
+
+Built as an Astro static site with React islands for interactive components. Requires Node.js >= 20
+and pnpm >= 9. External services needed for full functionality: a Formspree account (contact form)
+and a Firebase project (like counter). Spotify embed is a plain HTML iframe--no API key required.
+
+## Docs
+
+- [README](https://github.com/Gothsec/Portfolio/blob/main/README.md): setup instructions, configuration guides for Spotify and Formspree, project structure, and deployment notes
+- [Spotify configuration guide](https://github.com/Gothsec/Portfolio/blob/main/README.md#show-your-favorite-spotify-album-or-your-own-): how to embed a Spotify album via iframe in `src/components/footer.astro`
+- [Formspree configuration guide](https://github.com/Gothsec/Portfolio/blob/main/README.md#set-up-contact-form-formspree-): how to wire the contact form in `src/components/contact.astro` to a Formspree endpoint
+- [Live demo](https://darkminimal.vercel.app): deployed instance of the portfolio
+- [Astro Themes listing](https://astro.build/themes/details/dark-minimal/): official theme entry
+
+## Stack
+
+- **Astro** -- static site generator and component orchestrator
+- **React 19** -- interactive islands (LetterGlitch animation, LikeButton, SkillsList)
+- **Tailwind CSS** -- utility-first styling
+- **TypeScript** -- type checking across `.astro` and `.tsx` files
+- **Firebase / Firestore** -- realtime like counter with optimistic UI updates
+- **Formspree** -- serverless contact form backend
+- **Montserrat** (Fontsource variable) -- primary typeface
+- **OGL** -- WebGL utility used by the LetterGlitch canvas effect
+- **pnpm** -- package manager (enforced via `only-allow`)
+
+## Optional
+
+- [MIT License](https://opensource.org/licenses/mit): copyright 2026 Oscar Hernandez; attribution required on redistribution
+- [GitHub repository](https://github.com/Gothsec/Portfolio): source code, issues, and pull requests
+- [ReactBits Showcase](https://www.reactbits.dev/showcase): LetterGlitch component origin
